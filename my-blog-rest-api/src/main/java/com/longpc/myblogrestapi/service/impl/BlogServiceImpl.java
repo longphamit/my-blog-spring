@@ -8,6 +8,7 @@ import com.longpc.myblogrestapi.service.BlogService;
 import com.longpc.myblogrestapi.service.ImageService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,5 +33,8 @@ public class BlogServiceImpl implements BlogService {
         Map<String,String> path= imageService.saveImage(blogEntity.getId(),imagesShowList);
         blogEntity.setImageShow(path.get(imagesShowList.get(0).getOriginalFilename()));
         blogRepo.save(blogEntity);
+    }
+    public List<BlogEntity> getLazyByCategoryId(String categoryId,int page, int limit){
+       return blogRepo.findByCategoryId(categoryId, PageRequest.of(page,limit));
     }
 }

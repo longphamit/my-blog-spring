@@ -1,4 +1,4 @@
 package com.longpc.myblogrestapi.resource;
 
-public class AdminRecomResource {
+public class MemoResource {
 }
