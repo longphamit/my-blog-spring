@@ -22,7 +22,7 @@ public class JWTInterceptor implements HandlerInterceptor {
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "*");
         response.addHeader("Access-Control-Expose-Headers", "X-LONGPC-ACCESS-TOKEN");
-        if(request.getServletPath().contains("/authen")||request.getServletPath().contains("/image")){
+        if(request.getServletPath().contains("/authen")||request.getServletPath().contains("/image")||request.getServletPath().contains("/editor")){
             return true;
         }
         if(request.getMethod().equals("OPTIONS")){

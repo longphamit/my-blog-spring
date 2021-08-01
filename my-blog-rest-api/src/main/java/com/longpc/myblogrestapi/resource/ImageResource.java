@@ -1,5 +1,6 @@
 package com.longpc.myblogrestapi.resource;
 
+import com.longpc.myblogrestapi.constant.FileConstant;
 import com.longpc.myblogrestapi.service.ImageService;
 import com.longpc.myblogrestapi.service.impl.ImageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ImageResource {
     @Autowired
     ImageService imageService;
-    @GetMapping(path="/image-show/{blogId}/{imageName}",produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
-    public ResponseEntity getImageShow(@PathVariable("blogId")String blogId,@PathVariable("imageName")String imageName){
+    @GetMapping(path="/blog/{blogId}/{imageName}",produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity getImageBlog(@PathVariable("blogId")String blogId,@PathVariable("imageName")String imageName){
         try{
-            return ResponseEntity.ok().body(imageService.getImageFromBlogIdAndName(blogId,imageName));
+            return ResponseEntity.ok().body(imageService.getImageFromIdAndName(FileConstant.BLOG_IMAGE_FOLDER_PREFIX,blogId,imageName));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -27,7 +28,7 @@ public class ImageResource {
     @GetMapping(path="/editor/{imageName}",produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
     public ResponseEntity getImageEditor(@PathVariable("imageName")String imageName){
         try{
-            return ResponseEntity.ok().body(imageService.getImageEditor(imageName));
+            return ResponseEntity.ok().body(imageService.getEditorImageFromName(imageName));
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface ImageService {
-    Map<String, String> saveImage(String blogId, List<MultipartFile> images) throws Exception;
+    Map<String, String> saveImage(String blogId, List<MultipartFile> images, String prefixFolder, String prefixPathAccess) throws Exception;
 
-    Map<String, String> saveImage(MultipartFile image) throws Exception;
 
-    byte[] getImageFromBlogIdAndName(String blogId, String imageName) throws Exception;
+    byte[] getImageFromIdAndName(String prefix, String blogId, String imageName) throws Exception;
 
-    byte[] getImageEditor(String imageName) throws Exception;
+    String getPathFolder(String itemId, String prefix);
 
-    String getPathFolderBlog(String blogId);
+    Map<String, String> saveImageEditor(MultipartFile multipartFile) throws Exception;
+
+    byte[] getEditorImageFromName(String imageName) throws Exception;
 }

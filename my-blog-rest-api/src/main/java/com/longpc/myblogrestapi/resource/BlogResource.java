@@ -13,10 +13,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/blog")
 public class BlogResource {
+    private static final String FOLDER_EDITOR_IMAGE="editor_image";
+    private static final String PATH_EDITOR_IMAGE="editor";
+
     @Autowired
     BlogService blogService;
     @Autowired
@@ -75,17 +79,17 @@ public class BlogResource {
     }
 
 
-    @PostMapping("/images")
+    @PostMapping("/editor")
     public HashMap<String, Object> ckfinderImage(@RequestPart(value = "upload", required = false) MultipartFile image) {
         HashMap<String, Object> map = new HashMap<>();
         try {
-            //String path= imageService.saveCkfinderImage(image);
-            imageService.saveImage(image);
+            Map<String, String> pathMap=imageService.saveImageEditor(image);
+            pathMap.get(image.getOriginalFilename());
             HashMap<String, Object> mapSub = new HashMap<>();
             mapSub.put("acl", 255);
             map.put("resourceType", "Images");
-            map.put("fileName", image.getName());
-            map.put("url", "path");
+            map.put("fileName", image.getOriginalFilename());
+            map.put("url", pathMap.get(image.getOriginalFilename()));
             map.put("uploaded", 1);
             return map;
         } catch (Exception e) {

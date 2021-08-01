@@ -30,4 +30,18 @@ create table image(
     blog_id varchar(255),
     path varchar(255),
     foreign key (blog_id) references blog(id)
+);
+
+create table memo(
+	id varchar(255) primary key,
+    created_at datetime,
+    detail text,
+    image varchar(255),
+    year int
+);
+create table contact(
+	id varchar(255) primary key,
+    email varchar(255),
+    content text,
+    created_at datetime
 )

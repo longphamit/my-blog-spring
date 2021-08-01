@@ -1,8 +1,9 @@
 package com.longpc.myblogrestapi.service.impl;
 
+import com.longpc.myblogrestapi.constant.FileConstant;
+import com.longpc.myblogrestapi.constant.PathConstant;
 import com.longpc.myblogrestapi.dto.BlogDTO;
 import com.longpc.myblogrestapi.entity.BlogEntity;
-import com.longpc.myblogrestapi.entity.ImageEntity;
 import com.longpc.myblogrestapi.repository.BlogRepo;
 import com.longpc.myblogrestapi.service.BlogService;
 import com.longpc.myblogrestapi.service.ImageService;
@@ -30,9 +31,8 @@ public class BlogServiceImpl implements BlogService {
         BlogEntity blogEntity= modelMapper.map(blogDTO,BlogEntity.class);
         blogEntity.setId(UUID.randomUUID().toString());
         blogEntity.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
-        imageService.saveImage(blogEntity.getId(),imagesShowList);
         blogRepo.save(blogEntity);
-        Map<String,String> path= imageService.saveImage(blogEntity.getId(),imagesShowList);
+        Map<String,String> path= imageService.saveImage(blogEntity.getId(),imagesShowList, FileConstant.BLOG_IMAGE_FOLDER_PREFIX, PathConstant.BLOG_PATH_ACCESS_IMAGE);
         blogEntity.setImageShow(path.get(imagesShowList.get(0).getOriginalFilename()));
         blogRepo.save(blogEntity);
     }
@@ -46,7 +46,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public boolean delete(String id) {
         blogRepo.deleteById(id);
-        String pathFolder=imageService.getPathFolderBlog(id);
+        String pathFolder=imageService.getPathFolder(id, FileConstant.BLOG_IMAGE_FOLDER_PREFIX);
         File file= new File(pathFolder);
         if(file.exists()){
             if(file.isDirectory()){
