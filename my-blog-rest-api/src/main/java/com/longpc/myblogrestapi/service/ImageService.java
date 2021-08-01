@@ -9,4 +9,8 @@ public interface ImageService {
     Map<String, String> saveImage(String blogId, List<MultipartFile> images) throws Exception;
 
     Map<String, String> saveImage(MultipartFile image) throws Exception;
+
+    byte[] getImageFromBlogIdAndName(String blogId, String imageName) throws Exception;
+
+    byte[] getImageEditor(String imageName) throws Exception;
 }
