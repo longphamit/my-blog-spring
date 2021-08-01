@@ -37,4 +37,7 @@ public class BlogServiceImpl implements BlogService {
     public List<BlogEntity> getLazyByCategoryId(String categoryId,int page, int limit){
        return blogRepo.findByCategoryId(categoryId, PageRequest.of(page,limit));
     }
+    public List<BlogEntity> getAll(){
+        return blogRepo.findAll();
+    }
 }

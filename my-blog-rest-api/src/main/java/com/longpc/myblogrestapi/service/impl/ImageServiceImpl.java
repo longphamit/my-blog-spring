@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -39,6 +40,32 @@ public class ImageServiceImpl implements ImageService {
                 paths.put(name, serverFile.getPath());
             }
         }
+        return paths;
+    }
+
+    public Map<String, String> saveImage(MultipartFile image) throws Exception {
+        File uploadRootDir = new File(PATH_IMAGE);
+        // create folder save image
+        if (!uploadRootDir.exists()) {
+            uploadRootDir.mkdir();
+        }
+        // create blog folder in folder image
+        File uploadBlogDir = new File(PATH_IMAGE + File.separator + "editor_image");
+        if (!uploadBlogDir.exists()) {
+            uploadBlogDir.mkdir();
+        }
+        Map<String, String> paths = new HashMap<>();
+
+        //file image
+        String name = image.getOriginalFilename();
+        if (StringUtils.hasLength(name)) {
+            File serverFile = new File(uploadBlogDir.getAbsolutePath() + File.separator + name);
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+            stream.write(image.getBytes());
+            stream.close();
+            paths.put(name, serverFile.getPath());
+        }
+
         return paths;
     }
 }

@@ -18,7 +18,7 @@ create table category(
 create table blog(
 	id varchar(255) primary key,
     title varchar(255),
-    content varchar(255),
+    content text,
 	author varchar(255),
     created_at datetime,
     category_id varchar(255),

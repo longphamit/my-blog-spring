@@ -20,7 +20,7 @@ public class JwtCustomBean {
                 .setSubject(authenEntity.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime()+expired))
-                .signWith(SignatureAlgorithm.ES256,key)
+                .signWith(SignatureAlgorithm.HS256,key)
                 .compact();
     }
     public String getSubjectFromJwtToken(String token){

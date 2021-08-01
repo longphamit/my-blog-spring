@@ -1,14 +1,13 @@
 package com.longpc.myblogrestapi.resource;
 
 import com.longpc.myblogrestapi.dto.BlogDTO;
+import com.longpc.myblogrestapi.entity.BlogEntity;
 import com.longpc.myblogrestapi.service.BlogService;
-import lombok.SneakyThrows;
+import com.longpc.myblogrestapi.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +17,8 @@ import java.util.List;
 public class BlogResource {
     @Autowired
     BlogService blogService;
-
+    @Autowired
+    ImageService imageService;
     @PostMapping
     public ResponseEntity insert(@RequestPart(value = "imageShow", required = false) MultipartFile[] imageShow,
                                  @RequestPart(value = "blog") BlogDTO blogDTO) {
@@ -35,7 +35,8 @@ public class BlogResource {
     @GetMapping
     public ResponseEntity getAll() {
         try {
-            return ResponseEntity.ok().build();
+            List<BlogEntity> blogEntityList= blogService.getAll();
+            return ResponseEntity.ok().body(blogEntityList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -59,14 +60,20 @@ public class BlogResource {
 
     @PostMapping("/images")
     public HashMap<String, Object> ckfinderImage(@RequestPart(value = "upload", required = false) MultipartFile image) {
-        //String path= imageService.saveCkfinderImage(image);
         HashMap<String, Object> map = new HashMap<>();
-        HashMap<String, Object> mapSub = new HashMap<>();
-        mapSub.put("acl", 255);
-        map.put("resourceType", "Images");
-        map.put("fileName", image.getName());
-        map.put("url", "path");
-        map.put("uploaded", 1);
+        try{
+            //String path= imageService.saveCkfinderImage(image);
+            imageService.saveImage(image);
+            HashMap<String, Object> mapSub = new HashMap<>();
+            mapSub.put("acl", 255);
+            map.put("resourceType", "Images");
+            map.put("fileName", image.getName());
+            map.put("url", "path");
+            map.put("uploaded", 1);
+            return map;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return map;
     }
 }
