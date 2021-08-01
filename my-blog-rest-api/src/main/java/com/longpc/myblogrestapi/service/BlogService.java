@@ -13,4 +13,6 @@ public interface BlogService {
     List<BlogEntity> getLazyByCategoryId(String categoryId, int page, int limit);
 
     List<BlogEntity> getAll();
+
+    boolean delete(String id);
 }

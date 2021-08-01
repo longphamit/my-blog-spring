@@ -17,7 +17,15 @@ public class JWTInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.addHeader("Access-Control-Expose-Headers", "X-LONGPC-ACCESS-TOKEN");
         if(request.getServletPath().contains("/authen")||request.getServletPath().contains("/image")){
+            return true;
+        }
+        if(request.getMethod().equals("OPTIONS")){
             return true;
         }
         if (!StringUtils.hasLength(request.getHeader("X-LONGPC-ACCESS-TOKEN"))) {
@@ -30,7 +38,7 @@ public class JWTInterceptor implements HandlerInterceptor {
             response.sendError(403);
             return false;
         }
-        return false;
+        return true;
     }
 
     @Override

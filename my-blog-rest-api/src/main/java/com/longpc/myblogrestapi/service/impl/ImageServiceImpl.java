@@ -83,6 +83,9 @@ public class ImageServiceImpl implements ImageService {
         String path=PATH_IMAGE + File.separator + "blog_" + blogId+File.separator+imageName;
         return Files.readAllBytes(Paths.get(path));
     }
+    public String getPathFolderBlog(String blogId){
+        return PATH_IMAGE + File.separator + "blog_" + blogId;
+    }
     public byte[] getImageEditor(String imageName) throws Exception{
         String path=PATH_IMAGE + File.separator + "editor_image"+File.separator+imageName;
         return Files.readAllBytes(Paths.get(path));

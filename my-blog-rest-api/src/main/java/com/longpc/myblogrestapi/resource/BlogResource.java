@@ -5,9 +5,11 @@ import com.longpc.myblogrestapi.entity.BlogEntity;
 import com.longpc.myblogrestapi.service.BlogService;
 import com.longpc.myblogrestapi.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,7 @@ public class BlogResource {
     BlogService blogService;
     @Autowired
     ImageService imageService;
+
     @PostMapping
     public ResponseEntity insert(@RequestPart(value = "imageShow", required = false) MultipartFile[] imageShow,
                                  @RequestPart(value = "blog") BlogDTO blogDTO) {
@@ -35,7 +38,7 @@ public class BlogResource {
     @GetMapping
     public ResponseEntity getAll() {
         try {
-            List<BlogEntity> blogEntityList= blogService.getAll();
+            List<BlogEntity> blogEntityList = blogService.getAll();
             return ResponseEntity.ok().body(blogEntityList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,18 +53,32 @@ public class BlogResource {
             @RequestParam int limit
     ) {
         try {
-
-            return ResponseEntity.ok().build();
+            List<BlogEntity> blogEntityList= blogService.getLazyByCategoryId(categoryId,page,limit);
+            return ResponseEntity.ok().body(blogEntityList);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ResponseEntity.internalServerError().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteBlog(@PathVariable("id") String id) {
+        try {
+            if(blogService.delete(id)){
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.internalServerError().build();
+    }
+
+
     @PostMapping("/images")
     public HashMap<String, Object> ckfinderImage(@RequestPart(value = "upload", required = false) MultipartFile image) {
         HashMap<String, Object> map = new HashMap<>();
-        try{
+        try {
             //String path= imageService.saveCkfinderImage(image);
             imageService.saveImage(image);
             HashMap<String, Object> mapSub = new HashMap<>();
@@ -71,7 +88,7 @@ public class BlogResource {
             map.put("url", "path");
             map.put("uploaded", 1);
             return map;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return map;

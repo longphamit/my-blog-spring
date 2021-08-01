@@ -6,12 +6,14 @@ import com.longpc.myblogrestapi.entity.ImageEntity;
 import com.longpc.myblogrestapi.repository.BlogRepo;
 import com.longpc.myblogrestapi.service.BlogService;
 import com.longpc.myblogrestapi.service.ImageService;
+import org.aspectj.util.FileUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -39,5 +41,19 @@ public class BlogServiceImpl implements BlogService {
     }
     public List<BlogEntity> getAll(){
         return blogRepo.findAll();
+    }
+
+    @Override
+    public boolean delete(String id) {
+        blogRepo.deleteById(id);
+        String pathFolder=imageService.getPathFolderBlog(id);
+        File file= new File(pathFolder);
+        if(file.exists()){
+            if(file.isDirectory()){
+                FileUtil.deleteContents(file);
+            }
+            return file.delete();
+        }
+        return false;
     }
 }

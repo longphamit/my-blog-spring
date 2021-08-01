@@ -13,4 +13,6 @@ public interface ImageService {
     byte[] getImageFromBlogIdAndName(String blogId, String imageName) throws Exception;
 
     byte[] getImageEditor(String imageName) throws Exception;
+
+    String getPathFolderBlog(String blogId);
 }
