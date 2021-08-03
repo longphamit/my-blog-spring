@@ -16,12 +16,14 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryRepo categoryRepo;
     @Autowired
     ModelMapper modelMapper;
-    public void insert(CategoryDTO categoryDTO){
+    public String insert(CategoryDTO categoryDTO){
+        String id=UUID.randomUUID().toString();
         CategoryEntity categoryEntity= modelMapper.map(categoryDTO, CategoryEntity.class);
-        categoryEntity.setId(UUID.randomUUID().toString());
+        categoryEntity.setId(id);
         categoryRepo.save(categoryEntity);
+        return id;
     }
-    public List<CategoryEntity> get(){
+    public List<CategoryEntity> getAll(){
         return categoryRepo.findAll();
     }
 }

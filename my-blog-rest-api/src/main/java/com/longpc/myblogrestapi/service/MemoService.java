@@ -7,7 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface MemoService {
-    void insert(MemoDTO memoDTO, List<MultipartFile> image);
+    String insert(MemoDTO memoDTO, List<MultipartFile> image) throws Exception;
 
     List<MemoEntity> getAll();
+
+    boolean delete(String id) throws Exception;
 }

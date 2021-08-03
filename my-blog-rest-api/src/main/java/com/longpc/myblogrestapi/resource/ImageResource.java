@@ -25,6 +25,15 @@ public class ImageResource {
         }
         return ResponseEntity.internalServerError().build();
     }
+    @GetMapping(path="/memo/{memoId}/{imageName}",produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity getImageMemo(@PathVariable("memoId")String memoId,@PathVariable("imageName")String imageName){
+        try{
+            return ResponseEntity.ok().body(imageService.getImageFromIdAndName(FileConstant.MEMO_IMAGE_FOLDER_PREFIX,memoId,imageName));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ResponseEntity.internalServerError().build();
+    }
     @GetMapping(path="/editor/{imageName}",produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
     public ResponseEntity getImageEditor(@PathVariable("imageName")String imageName){
         try{
@@ -34,4 +43,5 @@ public class ImageResource {
         }
         return ResponseEntity.internalServerError().build();
     }
+
 }

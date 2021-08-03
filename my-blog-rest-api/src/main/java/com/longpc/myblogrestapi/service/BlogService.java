@@ -8,11 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface BlogService {
-    void save(BlogDTO blogDTO, List<MultipartFile> imagesShowList) throws Exception;
+    String save(BlogDTO blogDTO, List<MultipartFile> imagesShowList) throws Exception;
 
     List<BlogEntity> getLazyByCategoryId(String categoryId, int page, int limit);
 
     List<BlogEntity> getAll();
 
-    boolean delete(String id);
+    boolean delete(String id) throws Exception;
 }

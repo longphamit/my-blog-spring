@@ -27,14 +27,16 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     ImageService imageService;
     @Override
-    public void save(BlogDTO blogDTO, List<MultipartFile> imagesShowList) throws Exception {
+    public String save(BlogDTO blogDTO, List<MultipartFile> imagesShowList) throws Exception {
         BlogEntity blogEntity= modelMapper.map(blogDTO,BlogEntity.class);
-        blogEntity.setId(UUID.randomUUID().toString());
+        String id=UUID.randomUUID().toString();
+        blogEntity.setId(id);
         blogEntity.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         blogRepo.save(blogEntity);
         Map<String,String> path= imageService.saveImage(blogEntity.getId(),imagesShowList, FileConstant.BLOG_IMAGE_FOLDER_PREFIX, PathConstant.BLOG_PATH_ACCESS_IMAGE);
         blogEntity.setImageShow(path.get(imagesShowList.get(0).getOriginalFilename()));
         blogRepo.save(blogEntity);
+        return id;
     }
     public List<BlogEntity> getLazyByCategoryId(String categoryId,int page, int limit){
        return blogRepo.findByCategoryId(categoryId, PageRequest.of(page,limit));
@@ -44,16 +46,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(String id) throws Exception{
         blogRepo.deleteById(id);
-        String pathFolder=imageService.getPathFolder(id, FileConstant.BLOG_IMAGE_FOLDER_PREFIX);
-        File file= new File(pathFolder);
-        if(file.exists()){
-            if(file.isDirectory()){
-                FileUtil.deleteContents(file);
-            }
-            return file.delete();
-        }
-        return false;
+        return imageService.deleteImage(id, FileConstant.BLOG_IMAGE_FOLDER_PREFIX);
     }
 }

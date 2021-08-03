@@ -3,6 +3,7 @@ package com.longpc.myblogrestapi.service.impl;
 import com.longpc.myblogrestapi.constant.FileConstant;
 import com.longpc.myblogrestapi.constant.PathConstant;
 import com.longpc.myblogrestapi.service.ImageService;
+import org.aspectj.util.FileUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,4 +98,15 @@ public class ImageServiceImpl implements ImageService {
         return PATH_IMAGE + File.separator + prefix + itemId;
     }
 
+    public boolean deleteImage(String id, String folderPrefix) throws Exception {
+        String pathFolder = getPathFolder(id, folderPrefix);
+        File file = new File(pathFolder);
+        if (file.exists()) {
+            if (file.isDirectory()) {
+                FileUtil.deleteContents(file);
+            }
+            return file.delete();
+        }
+        return false;
+    }
 }

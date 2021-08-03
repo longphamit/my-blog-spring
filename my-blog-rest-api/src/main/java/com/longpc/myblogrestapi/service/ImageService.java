@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ImageService {
-    Map<String, String> saveImage(String blogId, List<MultipartFile> images, String prefixFolder, String prefixPathAccess) throws Exception;
+    Map<String, String> saveImage(String itemId, List<MultipartFile> images, String prefixFolder, String prefixPathAccess) throws Exception;
 
 
     byte[] getImageFromIdAndName(String prefix, String blogId, String imageName) throws Exception;
@@ -16,4 +16,6 @@ public interface ImageService {
     Map<String, String> saveImageEditor(MultipartFile multipartFile) throws Exception;
 
     byte[] getEditorImageFromName(String imageName) throws Exception;
+
+    boolean deleteImage(String id, String folderPrefix) throws Exception;
 }

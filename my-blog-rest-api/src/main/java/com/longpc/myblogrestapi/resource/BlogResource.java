@@ -18,15 +18,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/blog")
 public class BlogResource {
-    private static final String FOLDER_EDITOR_IMAGE="editor_image";
-    private static final String PATH_EDITOR_IMAGE="editor";
-
     @Autowired
     BlogService blogService;
     @Autowired
     ImageService imageService;
 
-    @PostMapping
+    @PostMapping("/auth")
     public ResponseEntity insert(@RequestPart(value = "imageShow", required = false) MultipartFile[] imageShow,
                                  @RequestPart(value = "blog") BlogDTO blogDTO) {
         try {
@@ -65,7 +62,7 @@ public class BlogResource {
         return ResponseEntity.internalServerError().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/auth/{id}")
     public ResponseEntity deleteBlog(@PathVariable("id") String id) {
         try {
             if(blogService.delete(id)){
@@ -79,7 +76,7 @@ public class BlogResource {
     }
 
 
-    @PostMapping("/editor")
+    @PostMapping("/auth/editor")
     public HashMap<String, Object> ckfinderImage(@RequestPart(value = "upload", required = false) MultipartFile image) {
         HashMap<String, Object> map = new HashMap<>();
         try {
