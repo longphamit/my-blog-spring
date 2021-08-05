@@ -35,7 +35,7 @@ create table image(
 create table memo(
 	id varchar(255) primary key,
     created_at datetime,
-    detail text,
+    content text,
     image varchar(255),
     year int
 );

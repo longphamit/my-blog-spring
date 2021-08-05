@@ -13,8 +13,8 @@ import java.util.Date;
 public class MemoEntity {
     @Id
     private String id;
-    private Date createAt;
-    private String detail;
+    private Date createdAt;
+    private String content;
     private String image;
     private int year;
 }

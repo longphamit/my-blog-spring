@@ -25,7 +25,7 @@ public class MemoResource {
             if(!StringUtils.hasLength(memoDTO.getYear())){
                 return ResponseEntity.badRequest().body("Year is empty!");
             }
-            if(!StringUtils.hasLength(memoDTO.getDetail())){
+            if(!StringUtils.hasLength(memoDTO.getContent())){
                 return ResponseEntity.badRequest().body("Detail is empty!");
             }
             List<MultipartFile> imageList = Arrays.asList(image);

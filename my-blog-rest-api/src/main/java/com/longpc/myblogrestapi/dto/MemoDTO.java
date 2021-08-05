@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class MemoDTO {
-    private String detail;
+    private String content;
     private String year;
 }

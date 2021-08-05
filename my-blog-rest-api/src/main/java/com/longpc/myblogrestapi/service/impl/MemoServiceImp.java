@@ -30,7 +30,7 @@ public class MemoServiceImp implements MemoService {
     public String insert(MemoDTO memoDTO, List<MultipartFile> image) throws Exception{
         MemoEntity memoEntity = modelMapper.map(memoDTO,MemoEntity.class);
         String id=UUID.randomUUID().toString();
-        memoEntity.setCreateAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+        memoEntity.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         memoEntity.setId(id);
         memoRepo.save(memoEntity);
         Map<String,String> path= imageService.saveImage(memoEntity.getId(),image, FileConstant.MEMO_IMAGE_FOLDER_PREFIX, PathConstant.MEMO_PATH_ACCESS_IMAGE);
