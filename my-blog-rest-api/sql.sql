@@ -44,4 +44,13 @@ create table contact(
     email varchar(255),
     content text,
     created_at datetime
+);
+create table refreshToken(
+	id varchar(255) not null,
+    email varchar(255),
+    expiration datetime,
+    value varchar(255),
+    primary key (id),
+    authen_id varchar(255),
+    foreign key (authen_id) references Authen(id)
 )

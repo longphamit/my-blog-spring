@@ -1,6 +1,7 @@
 package com.longpc.myblogrestapi.service.impl;
 
 import com.longpc.myblogrestapi.dto.AuthenDTO;
+import com.longpc.myblogrestapi.dto.AuthenResponseDTO;
 import com.longpc.myblogrestapi.entity.AuthenEntity;
 import com.longpc.myblogrestapi.repository.AuthenRepo;
 import com.longpc.myblogrestapi.service.AuthenService;
@@ -18,13 +19,14 @@ public class AuthenServiceImpl implements AuthenService {
     @Autowired
     ModelMapper modelMapper;
 
-    public AuthenEntity login(AuthenDTO authenDTO) {
+    public AuthenResponseDTO login(AuthenDTO authenDTO) {
         AuthenEntity authenEntity = authenRepo.findByEmail(authenDTO.getEmail());
         if(authenEntity!=null){
             boolean checking = BCrypt.checkpw(authenDTO.getPassword(), authenEntity.getPassword());
             if (checking) {
-                authenEntity.setPassword("");
-                return authenEntity;
+                AuthenResponseDTO authenResponseDTO=modelMapper.map(authenEntity,AuthenResponseDTO.class);
+                authenResponseDTO.setPassword("");
+                return authenResponseDTO;
             }
         }
         return null;

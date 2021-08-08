@@ -1,5 +1,6 @@
 package com.longpc.myblogrestapi.bean;
 
+import com.longpc.myblogrestapi.dto.AuthenResponseDTO;
 import com.longpc.myblogrestapi.entity.AuthenEntity;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,9 +16,9 @@ public class JwtCustomBean {
     @Value("${jwt.custom.expired}")
     private long expired;
 
-    public String generateJwtToken(AuthenEntity authenEntity) {
+    public String generateJwtToken(AuthenResponseDTO authenResponseDTO) {
         return Jwts.builder()
-                .setSubject(authenEntity.getEmail())
+                .setSubject(authenResponseDTO.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime()+expired))
                 .signWith(SignatureAlgorithm.HS256,key)
