@@ -38,6 +38,14 @@ public class MemoServiceImp implements MemoService {
         memoRepo.save(memoEntity);
         return id;
     }
+    @Override
+    public String insert(MemoDTO memoDTO) throws Exception{
+        MemoEntity memoEntity = memoRepo.getById(memoDTO.getId());
+        memoEntity.setContent(memoDTO.getContent());
+        memoEntity.setYear(memoDTO.getYear());
+        memoRepo.save(memoEntity);
+        return memoEntity.getId();
+    }
 
     @Override
     public List<MemoEntity> getAll() {

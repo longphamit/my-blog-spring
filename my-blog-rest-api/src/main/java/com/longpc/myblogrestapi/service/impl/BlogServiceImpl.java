@@ -7,14 +7,13 @@ import com.longpc.myblogrestapi.entity.BlogEntity;
 import com.longpc.myblogrestapi.repository.BlogRepo;
 import com.longpc.myblogrestapi.service.BlogService;
 import com.longpc.myblogrestapi.service.ImageService;
-import org.aspectj.util.FileUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -29,14 +28,16 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public String save(BlogDTO blogDTO, List<MultipartFile> imagesShowList) throws Exception {
         BlogEntity blogEntity= modelMapper.map(blogDTO,BlogEntity.class);
-        String id=UUID.randomUUID().toString();
-        blogEntity.setId(id);
+        if(!StringUtils.hasLength(blogDTO.getId())){
+            String id=UUID.randomUUID().toString();
+            blogEntity.setId(id);
+        }
         blogEntity.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         blogRepo.save(blogEntity);
         Map<String,String> path= imageService.saveImage(blogEntity.getId(),imagesShowList, FileConstant.BLOG_IMAGE_FOLDER_PREFIX, PathConstant.BLOG_PATH_ACCESS_IMAGE);
         blogEntity.setImageShow(path.get(imagesShowList.get(0).getOriginalFilename()));
         blogRepo.save(blogEntity);
-        return id;
+        return blogEntity.getId();
     }
     public List<BlogEntity> getLazyByCategoryId(String categoryId,int page, int limit){
        return blogRepo.findByCategoryId(categoryId, PageRequest.of(page,limit));

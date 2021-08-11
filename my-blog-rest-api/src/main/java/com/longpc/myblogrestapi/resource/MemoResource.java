@@ -22,14 +22,18 @@ public class MemoResource {
     public ResponseEntity insert(@RequestPart(value = "image") MultipartFile[] image,
                                  @RequestPart(value = "memo") MemoDTO memoDTO){
         try {
-            if(!StringUtils.hasLength(memoDTO.getYear())){
-                return ResponseEntity.badRequest().body("Year is empty!");
-            }
-            if(!StringUtils.hasLength(memoDTO.getContent())){
-                return ResponseEntity.badRequest().body("Detail is empty!");
-            }
             List<MultipartFile> imageList = Arrays.asList(image);
             memoService.insert(memoDTO, imageList);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.internalServerError().build();
+    }
+    @PostMapping("/auth")
+    public ResponseEntity update(@RequestPart(value = "memo") MemoDTO memoDTO){
+        try {
+            memoService.insert(memoDTO);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             e.printStackTrace();

@@ -9,6 +9,8 @@ import java.util.List;
 public interface MemoService {
     String insert(MemoDTO memoDTO, List<MultipartFile> image) throws Exception;
 
+    String insert(MemoDTO memoDTO) throws Exception;
+
     List<MemoEntity> getAll();
 
     boolean delete(String id) throws Exception;

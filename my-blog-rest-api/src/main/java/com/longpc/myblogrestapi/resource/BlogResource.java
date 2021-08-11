@@ -35,6 +35,18 @@ public class BlogResource {
         }
         return ResponseEntity.internalServerError().build();
     }
+    @PutMapping("/auth")
+    public ResponseEntity update(@RequestPart(value = "imageShow", required = false) MultipartFile[] imageShow,
+                                 @RequestPart(value = "blog") BlogDTO blogDTO) {
+        try {
+            List<MultipartFile> imageShowList = Arrays.asList(imageShow);
+            blogService.save(blogDTO, imageShowList);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.internalServerError().build();
+    }
 
     @GetMapping
     public ResponseEntity getAll() {
