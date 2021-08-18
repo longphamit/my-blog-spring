@@ -24,6 +24,7 @@ public class AuthenServiceImpl implements AuthenService {
         if(authenEntity!=null){
             boolean checking = BCrypt.checkpw(authenDTO.getPassword(), authenEntity.getPassword());
             if (checking) {
+//                authenEntity.setPassword("");
                 AuthenResponseDTO authenResponseDTO=modelMapper.map(authenEntity,AuthenResponseDTO.class);
                 authenResponseDTO.setPassword("");
                 return authenResponseDTO;

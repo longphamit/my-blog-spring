@@ -7,9 +7,11 @@ import com.longpc.myblogrestapi.service.MemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class MemoResource {
     private MemoService memoService;
     @PostMapping("/auth")
     public ResponseEntity insert(@RequestPart(value = "image") MultipartFile[] image,
-                                 @RequestPart(value = "memo") MemoDTO memoDTO){
+                                 @RequestPart(value = "memo")@Valid MemoDTO memoDTO){
         try {
             List<MultipartFile> imageList = Arrays.asList(image);
             memoService.insert(memoDTO, imageList);
@@ -30,7 +32,7 @@ public class MemoResource {
         }
         return ResponseEntity.internalServerError().build();
     }
-    @PostMapping("/auth")
+    @PutMapping("/auth")
     public ResponseEntity update(@RequestPart(value = "memo") MemoDTO memoDTO){
         try {
             memoService.insert(memoDTO);
