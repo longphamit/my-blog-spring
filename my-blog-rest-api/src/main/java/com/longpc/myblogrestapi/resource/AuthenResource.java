@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,7 +29,7 @@ public class AuthenResource {
     @Autowired
     RefreshTokenService refreshTokenService;
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AuthenDTO authenDTO) {
+    public ResponseEntity login(@Valid @RequestBody AuthenDTO authenDTO) {
         AuthenResponseDTO authenResponseDTO = authenService.login(authenDTO);
         if (authenResponseDTO != null) {
             List<String> exposeHeader= new ArrayList();

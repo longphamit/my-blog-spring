@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="bin\www" type="NodeJSConfigurationType" path-to-js-file="bin/www" working-dir="$PROJECT_DIR$/my-blog-chat-api">
+  <configuration default="false" name="app_js" type="NodeJSConfigurationType" path-to-js-file="app.js" working-dir="$PROJECT_DIR$/my-blog-chat-api">
     <envs>
       <env name="DEBUG" value="my-blog-chat-api:*" />
     </envs>

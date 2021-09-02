@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class JWTInterceptor implements HandlerInterceptor {
     @Autowired
     JwtCustomBean jwtCustomBean;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -21,23 +22,26 @@ public class JWTInterceptor implements HandlerInterceptor {
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "*");
         response.addHeader("Access-Control-Expose-Headers", "X-LONGPC-ACCESS-TOKEN");
-        if(
+        if (
                 !request.getServletPath().contains("auth")
-                ||request.getServletPath().contains("editor")
-                ||request.getServletPath().contains("authen")
-        ){
+                        || request.getServletPath().contains("editor")
+                        || request.getServletPath().contains("authen")
+                        || request.getServletPath().contains("chat")
+                        || request.getServletPath().contains("ws-message")
+                        || request.getServletPath().contains("app")
+        ) {
             return true;
         }
-        if(request.getMethod().equals("OPTIONS")){
+        if (request.getMethod().equals("OPTIONS")) {
             return true;
         }
         if (!StringUtils.hasLength(request.getHeader("X-LONGPC-ACCESS-TOKEN"))) {
             response.sendError(403);
             return false;
         }
-        String token= request.getHeader("X-LONGPC-ACCESS-TOKEN");
+        String token = request.getHeader("X-LONGPC-ACCESS-TOKEN");
         boolean isValidToken = jwtCustomBean.validateJwtToken(token);
-        if(!isValidToken){
+        if (!isValidToken) {
             response.sendError(403);
             return false;
         }

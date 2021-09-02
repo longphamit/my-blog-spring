@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/my-blog-chat-api/my-blog-chat-api.iml" filepath="$PROJECT_DIR$/my-blog-chat-api/my-blog-chat-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/my-blog-rest-api/my-blog-rest-api.iml" filepath="$PROJECT_DIR$/my-blog-rest-api/my-blog-rest-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-blog-send-email/my-blog-send-email.iml" filepath="$PROJECT_DIR$/my-blog-send-email/my-blog-send-email.iml" />
     </modules>
   </component>
 </project>

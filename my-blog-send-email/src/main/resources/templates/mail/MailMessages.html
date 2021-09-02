@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<p style="color: red; font-weight: bold" th:text="'Dear ' + ${email} + ','"></p>
+<p th:text="${message}"></p>
+<p>Thanks!</p>
+<img th:src="@{images/thanks.png}" style="display:block" width="200" height="87">
+</body>
+</html>
