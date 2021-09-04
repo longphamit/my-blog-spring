@@ -28,4 +28,9 @@ public class ContactResource {
     public ResponseEntity getAll() {
         return ResponseEntity.ok().body(contactService.getAll());
     }
+    @DeleteMapping("/auth/{id}")
+    public ResponseEntity deleteContactById(@PathVariable("id") String id) {
+        contactService.deletedById(id);
+        return ResponseEntity.ok().build();
+    }
 }

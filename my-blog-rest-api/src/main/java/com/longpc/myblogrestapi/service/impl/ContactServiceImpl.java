@@ -23,12 +23,17 @@ public class ContactServiceImpl implements ContactService {
     public void insert(ContactDTO contactDTO) {
         ContactEntity contactEntity= modelMapper.map(contactDTO,ContactEntity.class);
         contactEntity.setId(UUID.randomUUID().toString());
-        contactEntity.setCreateAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+        contactEntity.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         contactRepo.save(contactEntity);
     }
 
     @Override
     public List<ContactEntity> getAll() {
         return contactRepo.findAll();
+    }
+
+    @Override
+    public void deletedById(String id) {
+        contactRepo.deleteById(id);
     }
 }

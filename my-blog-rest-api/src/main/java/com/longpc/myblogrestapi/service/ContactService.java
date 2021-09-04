@@ -9,4 +9,6 @@ public interface ContactService {
     void insert(ContactDTO contactDTO);
 
     List<ContactEntity> getAll();
+
+    void deletedById(String id);
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,7 @@ public class BlogResource {
 
     @PostMapping("/auth")
     public ResponseEntity insert(@RequestPart(value = "imageShow", required = false) MultipartFile[] imageShow,
-                                 @RequestPart(value = "blog") BlogDTO blogDTO) {
+                                 @Valid @RequestPart(value = "blog") BlogDTO blogDTO) {
         try {
             List<MultipartFile> imageShowList = Arrays.asList(imageShow);
             blogService.save(blogDTO, imageShowList);
