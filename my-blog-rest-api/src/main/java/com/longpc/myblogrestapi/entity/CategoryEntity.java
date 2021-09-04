@@ -13,4 +13,5 @@ public class CategoryEntity {
     @Id
     private String id;
     private String name;
+    private String image;
 }

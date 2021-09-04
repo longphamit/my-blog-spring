@@ -61,11 +61,12 @@ public class BlogResource {
 
     @GetMapping("/{category}")
     public ResponseEntity getLazyByCategory(
-            @PathVariable("category") String categoryId,
-            @RequestParam int page,
-            @RequestParam int limit
+            @PathVariable("category") String categoryId
+
     ) {
         try {
+            int page = 0;
+            int limit = 10;
             List<BlogEntity> blogEntityList= blogService.getLazyByCategoryId(categoryId,page,limit);
             return ResponseEntity.ok().body(blogEntityList);
         } catch (Exception e) {

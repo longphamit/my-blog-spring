@@ -8,6 +8,7 @@
       <list>
         <option value="$PROJECT_DIR$/my-blog-rest-api/pom.xml" />
         <option value="$PROJECT_DIR$/my-blog-send-email/pom.xml" />
+        <option value="$PROJECT_DIR$/my-blog-gateway/pom.xml" />
       </list>
     </option>
   </component>

@@ -43,5 +43,14 @@ public class ImageResource {
         }
         return ResponseEntity.internalServerError().build();
     }
+    @GetMapping(path="/category/{categoryId}/{imageName}",produces = {MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity getCategoryImage(@PathVariable("categoryId")String categoryId,@PathVariable("imageName")String imageName){
+        try{
+            return ResponseEntity.ok().body(imageService.getImageFromIdAndName(FileConstant.CATEGORY_FOLDER_PREFIX,categoryId,imageName));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ResponseEntity.internalServerError().build();
+    }
 
 }

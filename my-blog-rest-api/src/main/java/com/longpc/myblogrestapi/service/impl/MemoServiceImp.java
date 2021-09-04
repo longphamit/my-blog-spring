@@ -26,20 +26,22 @@ public class MemoServiceImp implements MemoService {
     private ModelMapper modelMapper;
     @Autowired
     private ImageService imageService;
+
     @Override
-    public String insert(MemoDTO memoDTO, List<MultipartFile> image) throws Exception{
-        MemoEntity memoEntity = modelMapper.map(memoDTO,MemoEntity.class);
-        String id=UUID.randomUUID().toString();
+    public String insert(MemoDTO memoDTO, List<MultipartFile> image) throws Exception {
+        MemoEntity memoEntity = modelMapper.map(memoDTO, MemoEntity.class);
+        String id = UUID.randomUUID().toString();
         memoEntity.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         memoEntity.setId(id);
         memoRepo.save(memoEntity);
-        Map<String,String> path= imageService.saveImage(memoEntity.getId(),image, FileConstant.MEMO_IMAGE_FOLDER_PREFIX, PathConstant.MEMO_PATH_ACCESS_IMAGE);
+        Map<String, String> path = imageService.saveImage(memoEntity.getId(), image, FileConstant.MEMO_IMAGE_FOLDER_PREFIX, PathConstant.MEMO_PATH_ACCESS_IMAGE);
         memoEntity.setImage(path.get(image.get(0).getOriginalFilename()));
         memoRepo.save(memoEntity);
         return id;
     }
+
     @Override
-    public String insert(MemoDTO memoDTO) throws Exception{
+    public String insert(MemoDTO memoDTO) throws Exception {
         MemoEntity memoEntity = memoRepo.getById(memoDTO.getId());
         memoEntity.setContent(memoDTO.getContent());
         memoEntity.setYear(memoDTO.getYear());
@@ -53,8 +55,8 @@ public class MemoServiceImp implements MemoService {
     }
 
     @Override
-    public boolean delete(String id) throws Exception{
+    public boolean delete(String id) throws Exception {
         memoRepo.deleteById(id);
-        return imageService.deleteImage(id,FileConstant.MEMO_IMAGE_FOLDER_PREFIX);
+        return imageService.deleteImage(id, FileConstant.MEMO_IMAGE_FOLDER_PREFIX);
     }
 }

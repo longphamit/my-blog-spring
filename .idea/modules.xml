@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/my-blog-chat-api/my-blog-chat-api.iml" filepath="$PROJECT_DIR$/my-blog-chat-api/my-blog-chat-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-blog-gateway/my-blog-gateway.iml" filepath="$PROJECT_DIR$/my-blog-gateway/my-blog-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/my-blog-rest-api/my-blog-rest-api.iml" filepath="$PROJECT_DIR$/my-blog-rest-api/my-blog-rest-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/my-blog-send-email/my-blog-send-email.iml" filepath="$PROJECT_DIR$/my-blog-send-email/my-blog-send-email.iml" />
     </modules>
