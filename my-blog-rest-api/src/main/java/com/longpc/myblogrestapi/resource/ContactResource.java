@@ -1,5 +1,6 @@
 package com.longpc.myblogrestapi.resource;
 
+import com.longpc.myblogrestapi.config.call_service.MailServiceConfig;
 import com.longpc.myblogrestapi.dto.ContactDTO;
 import com.longpc.myblogrestapi.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,14 @@ import org.springframework.web.client.RestTemplate;
 public class ContactResource {
     @Autowired
     private ContactService contactService;
-
+    @Autowired
+    private MailServiceConfig mailServiceConfig;
     @PostMapping
     public ResponseEntity insert(@RequestBody ContactDTO contactDTO) {
         contactService.insert(contactDTO);
         RestTemplate restTemplate = new RestTemplate();
         Thread t = new Thread(() -> {
-            restTemplate.postForEntity("http://localhost:8081/mail/send", contactDTO, String.class);
+            mailServiceConfig.sendMail(contactDTO);
         });
         t.start();
         return ResponseEntity.ok().build();

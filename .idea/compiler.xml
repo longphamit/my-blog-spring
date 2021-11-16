@@ -9,11 +9,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="my-blog-gateway" />
         <module name="my-blog-send-email" />
+        <module name="my-blog-naming" />
         <module name="my-blog-rest-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="my-blog-gateway" target="1.8" />
+      <module name="my-blog-naming" target="1.8" />
       <module name="my-blog-rest-api" target="1.8" />
       <module name="my-blog-send-email" target="1.8" />
     </bytecodeTargetLevel>
@@ -21,6 +23,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="my-blog-gateway" options="-parameters" />
+      <module name="my-blog-naming" options="-parameters" />
       <module name="my-blog-rest-api" options="-parameters" />
       <module name="my-blog-send-email" options="-parameters" />
     </option>

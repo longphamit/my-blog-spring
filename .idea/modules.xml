@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/my-blog-gateway/my-blog-gateway.iml" filepath="$PROJECT_DIR$/my-blog-gateway/my-blog-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-blog-naming/my-blog-naming.iml" filepath="$PROJECT_DIR$/my-blog-naming/my-blog-naming.iml" />
       <module fileurl="file://$PROJECT_DIR$/my-blog-rest-api/my-blog-rest-api.iml" filepath="$PROJECT_DIR$/my-blog-rest-api/my-blog-rest-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/my-blog-send-email/my-blog-send-email.iml" filepath="$PROJECT_DIR$/my-blog-send-email/my-blog-send-email.iml" />
     </modules>
