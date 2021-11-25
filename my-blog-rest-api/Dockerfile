@@ -1,5 +1,4 @@
-FROM openjdk:8
-EXPOSE 8080
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM openjdk:8-jdk-alpine
+MAINTAINER longpc.com
+COPY target/my-blog-rest-api-0.0.1-SNAPSHOT.jar my-blog-rest-api-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/my-blog-rest-api-0.0.1-SNAPSHOT.jar"]

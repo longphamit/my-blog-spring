@@ -1,0 +1,70 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=Goboi123
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./01.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "6969:3306"
+    networks:
+      - spring-cloud-network
+    restart: always
+    command:
+      --init-file /docker-entrypoint-initdb.d/init.sql
+  my-blog-naming:
+    depends_on:
+      - mysql
+    container_name: my-blog-naming
+    build:
+      context: my-blog-naming
+      dockerfile: my-blog-naming/Dockerfile
+    image: my-blog-naming
+    ports:
+      - 8761:8761
+    networks:
+      - spring-cloud-network
+  my-blog-gateway:
+    container_name: my-blog-gateway
+    depends_on:
+      - my-blog-naming
+    build:
+      context: my-blog-gateway
+      dockerfile: my-blog-gateway/Dockerfile
+    image: my-blog-gateway
+    ports:
+      - 8765:8765
+    networks:
+      - spring-cloud-network
+  my-blog-rest-api:
+    container_name: my-blog-rest-api
+    depends_on:
+      - my-blog-naming
+    build:
+      context: my-blog-rest-api
+      dockerfile: my-blog-rest-api/Dockerfile
+    image: my-blog-rest-api
+    ports:
+      - 8081:8081
+    networks:
+      - spring-cloud-network
+  my-blog-send-email:
+    container_name: my-blog-send-email
+    depends_on:
+      - my-blog-naming
+    build:
+      context: my-blog-send-email
+      dockerfile: my-blog-send-email/Dockerfile
+    image: my-blog-send-email
+    ports:
+      - 8082:8082
+    networks:
+      - spring-cloud-network
+networks:
+  spring-cloud-network:
+    driver: bridge
+volumes:
+  mysql-data:
