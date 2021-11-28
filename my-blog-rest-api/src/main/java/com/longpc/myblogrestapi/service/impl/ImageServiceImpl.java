@@ -4,6 +4,7 @@ import com.longpc.myblogrestapi.constant.FileConstant;
 import com.longpc.myblogrestapi.constant.PathConstant;
 import com.longpc.myblogrestapi.service.ImageService;
 import org.aspectj.util.FileUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,12 @@ import java.util.UUID;
 
 @Service
 public class ImageServiceImpl implements ImageService {
+    @Value("${spring.application.name}")
+    private String serviceName;
+    @Value("${host.uri}")
+    private String hostUri;
+    @Value("${server.servlet.context-path}")
+    private String contextPath;
     public static final String PATH_IMAGE = System.getProperty("user.home") + "/my-blog";
 
     //"blog_"
@@ -76,13 +83,12 @@ public class ImageServiceImpl implements ImageService {
 
     // "/image-show"
     private String serverPathImageAccess(String itemId, String imageName, String prefixPath) {
-        return ServletUriComponentsBuilder.fromCurrentContextPath().path("/image" + "/" + prefixPath + "/" + itemId + "/" + imageName).toUriString();
+        return hostUri+"/"+serviceName+contextPath+"/image" + "/" + prefixPath + "/" + itemId + "/" + imageName;
     }
 
     private String serverPathImageAccessEditor(String imageName, String prefixPath) {
-        return ServletUriComponentsBuilder.fromCurrentContextPath().path("/image" + "/" + prefixPath + "/" + imageName).toUriString();
+        return hostUri+"/"+serviceName+contextPath+"/image" + "/" + prefixPath + "/" + imageName;
     }
-
 
     public byte[] getImageFromIdAndName(String prefix, String itemId, String imageName) throws Exception {
         String path = PATH_IMAGE + File.separator + prefix + itemId + File.separator + imageName;
