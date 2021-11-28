@@ -19,10 +19,7 @@ services:
     depends_on:
       - mysql
     container_name: my-blog-naming
-    build:
-      context: my-blog-naming
-      dockerfile: my-blog-naming/Dockerfile
-    image: my-blog-naming
+    image: longpc/my-blog-naming
     ports:
       - 8761:8761
     networks:
@@ -31,10 +28,7 @@ services:
     container_name: my-blog-gateway
     depends_on:
       - my-blog-naming
-    build:
-      context: my-blog-gateway
-      dockerfile: my-blog-gateway/Dockerfile
-    image: my-blog-gateway
+    image: longpc/my-blog-gateway
     ports:
       - 8765:8765
     networks:
@@ -43,10 +37,7 @@ services:
     container_name: my-blog-rest-api
     depends_on:
       - my-blog-naming
-    build:
-      context: my-blog-rest-api
-      dockerfile: my-blog-rest-api/Dockerfile
-    image: my-blog-rest-api
+    image: longpc/my-blog-rest-api
     ports:
       - 8081:8081
     networks:
@@ -55,10 +46,7 @@ services:
     container_name: my-blog-send-email
     depends_on:
       - my-blog-naming
-    build:
-      context: my-blog-send-email
-      dockerfile: my-blog-send-email/Dockerfile
-    image: my-blog-send-email
+    image: longpc/my-blog-send-email
     ports:
       - 8082:8082
     networks:

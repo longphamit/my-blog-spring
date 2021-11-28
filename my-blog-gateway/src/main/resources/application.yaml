@@ -9,7 +9,8 @@ spring:
           lowerCaseServiceId: true
       globalcors:
         cors-configurations:
-          '[localhost:3000]':
+          '[/**]':
+            allowedHeaders: "*"
             allowedOrigins: "*"
             allowedMethods:
               - GET
@@ -29,4 +30,4 @@ eureka:
     serviceUrl:
       defaultZone: http://my-blog-naming:8761/eureka
   instance:
-    hostname: localhost
+    hostname: my-blog-gateway
