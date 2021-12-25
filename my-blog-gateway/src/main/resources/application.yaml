@@ -28,6 +28,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://my-blog-naming:8761/eureka
+      defaultZone: http://localhost:8761/eureka
   instance:
     hostname: my-blog-gateway
+    prefer-ip-address: true

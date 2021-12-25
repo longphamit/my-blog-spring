@@ -1,13 +1,10 @@
 package com.longpc.myblogrestapi.resource;
 
-import com.longpc.myblogrestapi.dto.BlogDTO;
 import com.longpc.myblogrestapi.dto.MemoDTO;
 import com.longpc.myblogrestapi.entity.MemoEntity;
 import com.longpc.myblogrestapi.service.MemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,7 +30,7 @@ public class MemoResource {
         return ResponseEntity.internalServerError().build();
     }
     @PutMapping("/auth")
-    public ResponseEntity update(@RequestPart(value = "memo") MemoDTO memoDTO){
+    public ResponseEntity update(@RequestBody MemoDTO memoDTO){
         try {
             memoService.insert(memoDTO);
             return ResponseEntity.ok().build();

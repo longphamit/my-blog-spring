@@ -1,5 +1,6 @@
 package com.longpc.myblogrestapi.resource;
 import com.longpc.myblogrestapi.bean.JwtCustomBean;
+import com.longpc.myblogrestapi.constant.StringConstant;
 import com.longpc.myblogrestapi.dto.AuthenDTO;
 import com.longpc.myblogrestapi.dto.AuthenResponseDTO;
 import com.longpc.myblogrestapi.entity.AuthenEntity;
@@ -37,8 +38,8 @@ public class AuthenResource {
             RefreshTokenEntity refreshTokenEntity= refreshTokenService.createRefreshToken(authenResponseDTO.getId());
             authenResponseDTO.setRefreshToken(refreshTokenEntity);
             HttpHeaders responseHeaders = new HttpHeaders();
-            responseHeaders.set("X-LONGPC-ACCESS-TOKEN",token);
-            exposeHeader.add("X-LONGPC-ACCESS-TOKEN");
+            responseHeaders.set(StringConstant.AUTH_TOKEN,token);
+            exposeHeader.add(StringConstant.AUTH_TOKEN);
             responseHeaders.setAccessControlExposeHeaders(exposeHeader);
             return ResponseEntity.ok().headers(responseHeaders).body(authenResponseDTO);
         }

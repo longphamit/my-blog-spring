@@ -2,7 +2,6 @@ package com.longpc.myblogrestapi.resource;
 
 import com.longpc.myblogrestapi.constant.FileConstant;
 import com.longpc.myblogrestapi.service.ImageService;
-import com.longpc.myblogrestapi.service.impl.ImageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -34,15 +34,22 @@ services:
     networks:
       - spring-cloud-network
   my-blog-rest-api:
+    environment:
+      - HOST_URI=http://103.125.170.20:10045
     container_name: my-blog-rest-api
     depends_on:
       - my-blog-naming
     image: longpc/my-blog-rest-api
+    volumes:
+      - ./images:/root/my-blog
     ports:
       - 8081:8081
     networks:
       - spring-cloud-network
   my-blog-send-email:
+    environment:
+      - EMAIL_USER=phamlong992k@gmail.com
+      - EMAIL_PASSWORD=
     container_name: my-blog-send-email
     depends_on:
       - my-blog-naming
