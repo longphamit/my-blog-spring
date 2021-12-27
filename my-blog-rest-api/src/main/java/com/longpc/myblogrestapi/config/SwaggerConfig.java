@@ -1,5 +1,6 @@
 package com.longpc.myblogrestapi.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -17,10 +18,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig implements WebMvcConfigurer  {
+    @Value("${host.uri}")
+    private String hostUri;
+    @Value("${host.frontend.uri}")
+    private String hostFrontendUri;
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .host("localhost:8080")
+                .host(hostUri)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.longpc.myblogrestapi"))
                 .paths(PathSelectors.any())
@@ -28,9 +33,9 @@ public class SwaggerConfig implements WebMvcConfigurer  {
     }
 
     private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title("OneSignal HUB Rest API")
+        return new ApiInfoBuilder().title("DEVMON BLOG API")
                 .description("Origanization")
-                .contact(new Contact("Long Van System Solution", "https://longvan.net/", "longvan@gmail.com"))
+                .contact(new Contact("Phạm Càn Long", hostFrontendUri, "longphamjustdoit@gmail.com"))
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .version("1.0.0")

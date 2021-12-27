@@ -15,4 +15,6 @@ public interface BlogService {
     List<BlogEntity> getAll();
 
     boolean delete(String id) throws Exception;
+
+    BlogEntity getById(String id) throws Exception;
 }

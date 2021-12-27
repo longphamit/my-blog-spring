@@ -53,4 +53,12 @@ public class BlogServiceImpl implements BlogService {
         blogRepo.deleteById(id);
         return imageService.deleteImage(id, FileConstant.BLOG_IMAGE_FOLDER_PREFIX);
     }
+    @Override
+    public BlogEntity getById(String id) throws Exception{
+        Optional<BlogEntity> blogEntity= blogRepo.findById(id);
+        if(blogEntity.isPresent()){
+            return blogEntity.get();
+        }
+        return null;
+    }
 }

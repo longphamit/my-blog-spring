@@ -63,6 +63,16 @@ public class BlogResource {
         }
         return ResponseEntity.internalServerError().build();
     }
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable("id")String id) {
+        try {
+            BlogEntity blogEntity = blogService.getById(id);
+            return ResponseEntity.ok().body(blogEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.internalServerError().build();
+    }
 
     @GetMapping("/{category}")
     public ResponseEntity getLazyByCategory(
