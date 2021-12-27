@@ -34,9 +34,11 @@ public class BlogServiceImpl implements BlogService {
         }
         blogEntity.setCreatedAt(new Timestamp(Calendar.getInstance().getTimeInMillis()));
         blogRepo.save(blogEntity);
-        Map<String,String> path= imageService.saveImage(blogEntity.getId(),imagesShowList, FileConstant.BLOG_IMAGE_FOLDER_PREFIX, PathConstant.BLOG_PATH_ACCESS_IMAGE);
-        blogEntity.setImageShow(path.get(imagesShowList.get(0).getOriginalFilename()));
-        blogRepo.save(blogEntity);
+        if(imagesShowList!=null){
+            Map<String,String> path= imageService.saveImage(blogEntity.getId(),imagesShowList, FileConstant.BLOG_IMAGE_FOLDER_PREFIX, PathConstant.BLOG_PATH_ACCESS_IMAGE);
+            blogEntity.setImageShow(path.get(imagesShowList.get(0).getOriginalFilename()));
+            blogRepo.save(blogEntity);
+        }
         return blogEntity.getId();
     }
     public List<BlogEntity> getLazyByCategoryId(String categoryId,int page, int limit){

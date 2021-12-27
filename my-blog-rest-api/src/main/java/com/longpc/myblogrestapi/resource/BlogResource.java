@@ -36,11 +36,15 @@ public class BlogResource {
         }
         return ResponseEntity.internalServerError().build();
     }
+
     @PutMapping("/auth")
     public ResponseEntity update(@RequestPart(value = "imageShow", required = false) MultipartFile[] imageShow,
                                  @RequestPart(value = "blog") BlogDTO blogDTO) {
         try {
-            List<MultipartFile> imageShowList = Arrays.asList(imageShow);
+            List<MultipartFile> imageShowList = null;
+            if (imageShow != null) {
+                imageShowList = Arrays.asList(imageShow);
+            }
             blogService.save(blogDTO, imageShowList);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
@@ -68,7 +72,7 @@ public class BlogResource {
         try {
             int page = 0;
             int limit = 10;
-            List<BlogEntity> blogEntityList= blogService.getLazyByCategoryId(categoryId,page,limit);
+            List<BlogEntity> blogEntityList = blogService.getLazyByCategoryId(categoryId, page, limit);
             return ResponseEntity.ok().body(blogEntityList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +83,7 @@ public class BlogResource {
     @DeleteMapping("/auth/{id}")
     public ResponseEntity deleteBlog(@PathVariable("id") String id) {
         try {
-            if(blogService.delete(id)){
+            if (blogService.delete(id)) {
                 return ResponseEntity.ok().build();
             }
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -94,7 +98,7 @@ public class BlogResource {
     public HashMap<String, Object> ckfinderImage(@RequestPart(value = "upload", required = false) MultipartFile image) {
         HashMap<String, Object> map = new HashMap<>();
         try {
-            Map<String, String> pathMap=imageService.saveImageEditor(image);
+            Map<String, String> pathMap = imageService.saveImageEditor(image);
             pathMap.get(image.getOriginalFilename());
             HashMap<String, Object> mapSub = new HashMap<>();
             mapSub.put("acl", 255);

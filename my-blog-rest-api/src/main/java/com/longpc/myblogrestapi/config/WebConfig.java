@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     JWTInterceptor jwtInterceptor;
     //http://103.125.170.20:10036
-    @Value("host.frontend.uri")
+    @Value("${host.frontend.uri}")
     String hostFrontend;
     @Override
     public void addCorsMappings(CorsRegistry registry) {

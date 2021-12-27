@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class JWTInterceptor implements HandlerInterceptor {
     @Autowired
     JwtCustomBean jwtCustomBean;
-    @Value("host.frontend.uri")
+    @Value("${host.frontend.uri}")
     String hostFrontend;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
