@@ -74,9 +74,9 @@ public class BlogResource {
         return ResponseEntity.internalServerError().build();
     }
 
-    @GetMapping("/{category}")
+    @GetMapping("/category/{cate_id}")
     public ResponseEntity getLazyByCategory(
-            @PathVariable("category") String categoryId
+            @PathVariable("cate_id") String categoryId
 
     ) {
         try {

@@ -35,7 +35,8 @@ services:
       - spring-cloud-network
   my-blog-rest-api:
     environment:
-      - HOST_URI=http://103.125.170.20:10045
+      - HOST_URI=
+      - HOST_FRONTEND_URI=
     container_name: my-blog-rest-api
     depends_on:
       - my-blog-naming
