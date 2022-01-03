@@ -45,7 +45,7 @@ public class SendEmailServiceImpl implements SendEmailService {
         try {
             message.setRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress(contactDTO.getEmail())});
             message.setFrom(new InternetAddress(email));
-            message.setSubject("PhamLongBlog");
+            message.setSubject("Devmon Blog");
             message.setContent(thymeleafService.getContent(contactDTO), CONTENT_TYPE_TEXT_HTML);
             Transport.send(message);
         } catch (MessagingException e) {

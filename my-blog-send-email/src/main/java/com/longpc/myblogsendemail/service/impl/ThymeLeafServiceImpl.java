@@ -51,7 +51,7 @@ public class ThymeLeafServiceImpl implements ThymeLeafService {
     public String getContent(ContactDTO contactDTO) {
         final Context context = new Context();
         context.setVariable("email", contactDTO.getEmail());
-        context.setVariable("message", "Thank for your contact. I will connect with you soon.");
+        context.setVariable("message", "Thank you for your contact. Sorry for my reply late. I will connect with you soon.");
         return templateEngine.process(TEMPLATE_NAME, context);
     }
 }
