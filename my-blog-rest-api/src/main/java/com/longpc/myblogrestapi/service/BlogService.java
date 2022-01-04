@@ -10,6 +10,8 @@ import java.util.List;
 public interface BlogService {
     String save(BlogDTO blogDTO, List<MultipartFile> imagesShowList) throws Exception;
 
+    String update(BlogDTO blogDTO, List<MultipartFile> imagesShowList) throws Exception;
+
     List<BlogEntity> getLazyByCategoryId(String categoryId, int page, int limit);
 
     List<BlogEntity> getAll();

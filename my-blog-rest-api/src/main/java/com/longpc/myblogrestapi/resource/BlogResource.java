@@ -45,7 +45,7 @@ public class BlogResource {
             if (imageShow != null) {
                 imageShowList = Arrays.asList(imageShow);
             }
-            blogService.save(blogDTO, imageShowList);
+            blogService.update(blogDTO, imageShowList);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             e.printStackTrace();

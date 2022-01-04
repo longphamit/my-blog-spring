@@ -41,6 +41,18 @@ public class BlogServiceImpl implements BlogService {
         }
         return blogEntity.getId();
     }
+    public String update(BlogDTO blogDTO, List<MultipartFile> imagesShowList) throws Exception {
+        BlogEntity blogExisted=getById(blogDTO.getId());
+        blogExisted.setTitle(blogDTO.getTitle());
+        blogExisted.setContent(blogDTO.getContent());
+        blogExisted.setCategoryId(blogDTO.getCategoryId());
+        if(imagesShowList!=null){
+            Map<String,String> path= imageService.saveImage(blogExisted.getId(),imagesShowList, FileConstant.BLOG_IMAGE_FOLDER_PREFIX, PathConstant.BLOG_PATH_ACCESS_IMAGE);
+            blogExisted.setImageShow(path.get(imagesShowList.get(0).getOriginalFilename()));
+        }
+        blogRepo.save(blogExisted);
+        return blogExisted.getId();
+    }
     public List<BlogEntity> getLazyByCategoryId(String categoryId,int page, int limit){
        return blogRepo.findByCategoryId(categoryId, PageRequest.of(page,limit));
     }
